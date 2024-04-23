@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -15,6 +16,8 @@ environ.Env.read_env(BASE_DIR / ".env")
 
 # GENERAL
 
+SITE_ID = 1
+
 SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
@@ -25,6 +28,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 ROOT_URLCONF = "config.urls"
 
+AUTH_USER_MODEL = "users.User"
 
 # LOCALIZATION AND INTERNATIONALIZATION
 
@@ -69,9 +73,20 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "dj_rest_auth",
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
+    "rest_framework.authtoken",
+]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    "itemania.users",
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -86,6 +101,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 
@@ -133,3 +149,31 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",  # noqa: E501
     },
 ]
+
+
+# REST FRAMEWORK
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+    ),
+}
+
+
+# REST AUTH
+
+REST_AUTH = {
+    "USE_JWT": True,
+    "JWT_AUTH_COOKIE": "auth-cookie",
+    "JWT_AUTH_REFRESH_COOKIE": "refresh-cookie",
+    "REGISTER_SERIALIZER": "itemania.users.api.serializers.UserRegistrationSerializer",  # noqa: E501
+    "JWT_AUTH_HTTPONLY": False,
+}
+
+
+# SIMPLE JWT
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=720),
+    "UPDATE_LAST_LOGIN": True,
+}
