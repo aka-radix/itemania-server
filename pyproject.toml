@@ -15,6 +15,8 @@ psycopg2-binary = "^2.9.9"
 djangorestframework-simplejwt = "^5.3.1"
 dj-rest-auth = "^6.0.0"
 django-allauth = "^0.62.0"
+pillow = "^10.3.0"
+factory-boy = "^3.3.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -28,6 +30,7 @@ django-silk = "^5.1.0"
 django-extensions = "^3.2.3"
 pre-commit = "^3.7.0"
 django-stubs = "^4.2.7"
+ipython = "^8.23.0"
 
 [tool.mypy]
 python_version = "^3.12"
@@ -137,7 +140,8 @@ ignore = [
     "RUF012",
     "SIM102",
     "TRY003",
-    "EM101"
+    "EM101",
+    "S311"
 ]
 
 fixable = ["ALL"]
