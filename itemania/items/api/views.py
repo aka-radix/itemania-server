@@ -21,7 +21,7 @@ class ItemViewSet(
     permission_classes = (IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
     serializer_class = ItemSerializer
-    queryset = Item.objects.all()
+    queryset = Item.objects.all().order_by("-pk")
 
     def get_serializer_class(self):
         if self.action == "list":

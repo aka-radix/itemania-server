@@ -17,6 +17,7 @@ dj-rest-auth = "^6.0.0"
 django-allauth = "^0.62.0"
 pillow = "^10.3.0"
 factory-boy = "^3.3.0"
+django-structlog = "^8.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
