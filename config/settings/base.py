@@ -84,6 +84,7 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth.registration",
     "rest_framework.authtoken",
     "django_structlog",
+    "drf_spectacular",
 ]
 
 LOCAL_APPS = [
@@ -162,6 +163,7 @@ REST_FRAMEWORK = {
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ),
     "DEFAULT_PAGINATION_CLASS": "itemania.items.api.paginators.StandardResultsSetPagination",  # noqa: E501
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 
@@ -173,6 +175,16 @@ REST_AUTH = {
     "JWT_AUTH_REFRESH_COOKIE": "refresh-cookie",
     "REGISTER_SERIALIZER": "itemania.users.api.serializers.UserRegistrationSerializer",  # noqa: E501
     "JWT_AUTH_HTTPONLY": False,
+}
+
+
+# DRF SPECTACULAR
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Itemania API",
+    "DESCRIPTION": "A Django based server for Itemania.",
+    "VERSION": "0.1.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 
