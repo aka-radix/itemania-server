@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    hostname: db
+    environment:
+      POSTGRES_PASSWORD: 123
+      POSTGRES_USER: user
+      POSTGRES_DB: itemania
+    env_file:
+      - ./.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - djangonetwork
+
+  web:
+    build: .
+    command: poetry run python manage.py runserver 8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+    networks:
+      - djangonetwork
+
+volumes:
+  pgdata:
+
+networks:
+    djangonetwork:
+        driver: bridge
