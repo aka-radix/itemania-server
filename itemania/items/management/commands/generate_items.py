@@ -15,7 +15,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):  # noqa: ARG002
-        count = options["number"]
+        count = int(options["number"])
         Item.objects.bulk_create(ItemFactory.create_batch(count))
         self.stdout.write(
             self.style.SUCCESS(f"{count} items generated successfully!"),
