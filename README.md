@@ -30,16 +30,23 @@ poetry shell
 poetry install
 ```
 
-- Add static directory, just to supress warning
+- Add static and media directories
 
 ```bash
 mkdir itemania/static
+mkdir -p itemania/media/items
 ```
 
 - Migrate to database:
 
 ```bash
 poetry run python manage.py migrate
+```
+
+- Generate some fake items (default is 10 items):
+
+```bash
+poetry run python manage.py generate_items --number <number>
 ```
 
 - Run the server:
